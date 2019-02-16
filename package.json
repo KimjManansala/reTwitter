@@ -1,0 +1,30 @@
+{
+  "name": "retwitter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && node start",
+    "start": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"node server\" \"node client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "email-validator": "^2.0.4",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "nodemon": "1.18.9",
+    "passport": "0.4.0",
+    "passport-facebook": "2.1.1",
+    "passport-google-oauth20": "^1.0.0",
+    "sequelize": "4.42.0",
+    "sequelize-views-support": "^1.2.2"
+  },
+  "devDependencies": {
+    "sequelize-cli": "5.4.0",
+    "concurrently": "^4.0.1"
+  }
+}
