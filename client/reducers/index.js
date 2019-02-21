@@ -2,10 +2,11 @@ import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
 // Reducers
-import countReducer from './countReducer'
+import sampleReducer from './sampleReducer';
 
 const rootReducer = combineReducers({
-    countReducer: countReducer
+	sampleReducer: sampleReducer 
+	// add all your reducers here 
 });
-// fdsjlfkjsdkfsldkjklfsdf test
+
 export default rootReducer;
