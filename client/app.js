@@ -19,6 +19,7 @@ import rootReducer from "./reducers/index";
 // Components
 // import Twitter from "./components/Twitter";
 import HomePage from "./components/homepage/HomepPage";
+import Register from "./components/Register/Register";
 
 // Initialize redux store and thunk middleware
 const store = createStore(rootReducer, applyMiddleware(routing));
@@ -29,7 +30,12 @@ ReactDOM.render(
       {/* <Switch>
         <Route path="/" exact component={HomePage} />
       </Switch> */}
-      <HomePage/>
+
+      <Switch>
+        <Route path='/' exact component={HomePage}/>
+        <Route path='/register' exact component={Register}/>
+      </Switch>
+
     </Router>
   </Provider>,
   document.getElementById("root")

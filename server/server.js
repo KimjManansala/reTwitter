@@ -17,17 +17,12 @@ const buildPath = path.join(__dirname, "..", "build");
 app.use(express.static(buildPath));
 app.use(compress());
 
-app.use(bodyParser.json({ limit: "5mb" }));
-app.use(bodyParser.urlencoded({ limit: "5mb", extended: false }));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-
-
-// frontend entry
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "build/index.html"));
-});
 
 const sessionsObj = {
   secret: "bin organizer",
@@ -41,10 +36,24 @@ if (app.get("env") === "production") {
 }
 app.use(session(sessionsObj));
 
+
+
+
+
+
+
+
+
+
 // app.use('/db', db);
-// app.use(require("./routes/tweet"));
-// app.use(require('./routes/register'))
+
 app.use(require('./routes/createUser'))
+
+
+// frontend entry
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "build/index.html"));
+});
 
 
 
@@ -56,9 +65,6 @@ app.use((req, res, next) => {
   res.send("404: Page Not Found");
   next(err);
 });
-
-
-
 
 
 const port = process.env.PORT || 3000;

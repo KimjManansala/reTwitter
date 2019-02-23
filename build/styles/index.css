@@ -1,11 +1,47 @@
-.homepage-body{
-    background-image: url('../img/Homepage/Homepage-emile-perron-190221-unsplash.jpg');
-     /* Set a specific height */
-  height: 100vh; 
+.homepage-body {
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+    background-image: url(../img/Homepage/Homepage-emile-perron-190221-unsplash.jpg);
+    /* Set a specific height */
+    height: 100vh;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-messsage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    width: 50vw;
+    font-size: 30px;
+    color:white;
+}
+
+.homepage-body > button{
+    width: 150px;
+    font-size: 100%;
+    margin: 30px;
+}
+
+.register-body{
+    background-image: url(../img/eric-muhr-1334274-unsplash.jpg);
+    height: 100vh;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

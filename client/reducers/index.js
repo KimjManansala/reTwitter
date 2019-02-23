@@ -3,9 +3,10 @@ import { combineReducers } from 'redux';
 
 // Reducers
 import sampleReducer from './sampleReducer';
+import userLogin from './userloginReducer'
 
 const rootReducer = combineReducers({
-	sampleReducer: sampleReducer 
+	userLogin : userLogin
 	// add all your reducers here 
 });
 
