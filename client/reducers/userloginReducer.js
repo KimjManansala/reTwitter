@@ -10,21 +10,18 @@ const userLogin = ( state = {user: {}},action) => {
    * we might have a number of different action types.
    * So we use a switch statement.
    */
+       // Deep copy of the current state
+
+  const newState = Object.assign({}, state);
 
   switch (action.type) {
     case "CHANGE_USER":
-      /*
-       * For this reducer we just want to return the state, but modify the header field
-       * to reflect the new header passed from the action.
-       */
-      const newState = Object.assign({}, state); // Deep copy of the current state
-      newState.header = action.header; // Update header
       newState.user = {
-        id: action.id,
-        username: action.username,
-        fname: action.fname,
-        lname: action.lname,
-        email: action.email
+        id: action.user.id,
+        username: action.user.username,
+        fname: action.user.firstName,
+        lname: action.user.lastname,
+        email: action.user.email
       }
       return newState;
     default:

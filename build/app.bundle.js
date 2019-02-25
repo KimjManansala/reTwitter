@@ -4431,7 +4431,7 @@ var RegisterContainer = function (_Component) {
     key: "handlePassChange",
     value: function handlePassChange(evt) {
       this.setState({ pass: evt.target.value });
-      if (evt.target.value.length < 10) {
+      if (evt.target.value.length < 8) {
         this.setState({ passErr: { show: true, message: "Password to short" } });
       } else {
         this.setState({ passErr: { show: false } });
@@ -4459,7 +4459,8 @@ var RegisterContainer = function (_Component) {
     key: "submitCheck",
     value: function submitCheck() {
       if (!this.state.username) this.setState({ userErr: { show: true, message: "Invalid Username" } });else this.setState({ userErr: { show: false } });
-      if (!this.state.pass) this.setState({ passErr: { show: true, message: "Invalid Psssword" } });else this.setState({ passErr: { show: false } });
+      if (!this.state.pass) this.setState({ passErr: { show: true, message: "Invalid Password" } });else this.setState({ passErr: { show: false } });
+      if (this.state.pass < 8) this.setState({ passErr: { show: true, message: "Invalid Password" } });else this.setState({ passErr: { show: false } });
       if (!this.state.fName) this.setState({
         fNameErr: { show: true, message: "Invalid First Name" }
       });else this.setState({ fNameErr: { show: false } });
@@ -4473,13 +4474,30 @@ var RegisterContainer = function (_Component) {
       }
     }
   }, {
+    key: "checkResults",
+    value: function checkResults(message) {
+      if (message.data.error) {
+        if (message.data.error.username) this.setState({
+          usernameEr: { show: true, message: message.data.error.username }
+        });
+        if (message.data.error.register) this.setState({
+          usernameEr: { show: true, message: message.data.error.register }
+        });
+        if (message.data.error.email) this.setState({
+          emailErr: { show: true, message: message.data.error.email }
+        });
+        return false;
+      } else {
+        return message;
+      }
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(evt) {
       var _this2 = this;
 
       evt.preventDefault();
       if (this.submitCheck()) {
-        console.log("hi");
         var user = {
           username: this.state.username,
           password: this.state.pass,
@@ -4487,21 +4505,16 @@ var RegisterContainer = function (_Component) {
           lName: this.state.lName,
           email: this.state.email
         };
-        _axios2.default.post("/db/create/user", { user: user }).then(function (res) {
-          console.log("Hi!!!!");
-          // this.setState({isSubmit: false})
-          if (res.data.error) {
-            if (res.data.error.email) _this2.setState({ email: "" });
-            if (res.data.error.register) _this2.setState({ username: "" });
-            if (res.data.error.username) {
-              _this2.setState({ usernameEr: res.data.error.username });
-              _this2.setState({ username: "" });
-            }
+        console.log("This is the user", user);
+        _axios2.default.post("/db/create/user", { user: user }).then(this.checkResults).then(function (res) {
+          if (res) {
+            console.log(res.data.user);
+            _this2.props.saveUser(res.data.user);
+            console.log(_this2.props.user);
+            _this2.props.history.push("/");
+          } else {
+            // Do nothing
           }
-          console.log("Hi");
-          _this2.props.saveUser(res.user);
-          _this2.setState({ register: true });
-          _this2.props.history.push("/");
         }).catch(function (er) {
           console.error(er);
         });
@@ -4543,6 +4556,11 @@ var RegisterContainer = function (_Component) {
               password: this.state.pass,
               error: this.state.passErr
             }),
+            _react2.default.createElement(_Email2.default, {
+              method: this.handleEmail,
+              email: this.state.email,
+              error: this.state.emailErr
+            }),
             _react2.default.createElement(_Fname2.default, {
               method: this.handleFname,
               fName: this.state.fName,
@@ -4552,11 +4570,6 @@ var RegisterContainer = function (_Component) {
               method: this.handleLname,
               lName: this.state.lName,
               error: this.state.lNameErr
-            }),
-            _react2.default.createElement(_Email2.default, {
-              method: this.handleEmail,
-              email: this.state.email,
-              error: this.state.emailErr
             }),
             _react2.default.createElement("input", { type: "submit", value: "Submit" })
           )
@@ -6134,21 +6147,18 @@ var userLogin = function userLogin() {
    * we might have a number of different action types.
    * So we use a switch statement.
    */
+  // Deep copy of the current state
+
+  var newState = Object.assign({}, state);
 
   switch (action.type) {
     case "CHANGE_USER":
-      /*
-       * For this reducer we just want to return the state, but modify the header field
-       * to reflect the new header passed from the action.
-       */
-      var newState = Object.assign({}, state); // Deep copy of the current state
-      newState.header = action.header; // Update header
       newState.user = {
-        id: action.id,
-        username: action.username,
-        fname: action.fname,
-        lname: action.lname,
-        email: action.email
+        id: action.user.id,
+        username: action.user.username,
+        fname: action.user.firstName,
+        lname: action.user.lastName,
+        email: action.user.email
       };
       return newState;
     default:

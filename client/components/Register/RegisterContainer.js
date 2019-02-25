@@ -36,7 +36,7 @@ class RegisterContainer extends Component {
   }
   handlePassChange(evt) {
     this.setState({ pass: evt.target.value });
-    if (evt.target.value.length < 10) {
+    if (evt.target.value.length < 8) {
       this.setState({ passErr: { show: true, message: "Password to short" } });
     } else {
       this.setState({ passErr: { show: false } });
@@ -59,7 +59,10 @@ class RegisterContainer extends Component {
       this.setState({ userErr: { show: true, message: "Invalid Username" } });
     else this.setState({ userErr: { show: false } });
     if (!this.state.pass)
-      this.setState({ passErr: { show: true, message: "Invalid Psssword" } });
+      this.setState({ passErr: { show: true, message: "Invalid Password" } });
+    else this.setState({ passErr: { show: false } });
+    if (this.state.pass < 8)
+      this.setState({ passErr: { show: true, message: "Invalid Password" } });
     else this.setState({ passErr: { show: false } });
     if (!this.state.fName)
       this.setState({
@@ -86,6 +89,26 @@ class RegisterContainer extends Component {
     }
   }
 
+  checkResults(message) {
+    if (message.data.error) {
+      if (message.data.error.username)
+        this.setState({
+          usernameEr: { show: true, message: message.data.error.username }
+        });
+      if (message.data.error.register)
+        this.setState({
+          usernameEr: { show: true, message: message.data.error.register }
+        });
+      if (message.data.error.email)
+        this.setState({
+          emailErr: { show: true, message: message.data.error.email }
+        });
+      return false;
+    } else {
+      return message;
+    }
+  }
+
   handleSubmit(evt) {
     evt.preventDefault();
     if (this.submitCheck()) {
@@ -96,22 +119,19 @@ class RegisterContainer extends Component {
         lName: this.state.lName,
         email: this.state.email
       };
+      console.log("This is the user", user);
       axios
         .post("/db/create/user", { user: user })
+        .then(this.checkResults)
         .then(res => {
-          // this.setState({isSubmit: false})
-          if (res.data.error) {
-            if (res.data.error.email) this.setState({ email: "" });
-            if (res.data.error.register) this.setState({ username: "" });
-            if (res.data.error.username) {
-              this.setState({ usernameEr: res.data.error.username });
-              this.setState({ username: "" });
-            }
-            return;
+          if (res) {
+            console.log(res.data.user)
+            this.props.saveUser(res.data.user);
+            console.log(this.props.user);
+            this.props.history.push("/");
+          } else {
+            // Do nothing
           }
-          this.props.saveUser(res.user);
-          this.setState({ register: true });
-          this.props.history.push("/");
         })
         .catch(er => {
           console.error(er);
@@ -145,6 +165,11 @@ class RegisterContainer extends Component {
               password={this.state.pass}
               error={this.state.passErr}
             />
+            <Email
+              method={this.handleEmail}
+              email={this.state.email}
+              error={this.state.emailErr}
+            />
             <Fname
               method={this.handleFname}
               fName={this.state.fName}
@@ -155,11 +180,7 @@ class RegisterContainer extends Component {
               lName={this.state.lName}
               error={this.state.lNameErr}
             />
-            <Email
-              method={this.handleEmail}
-              email={this.state.email}
-              error={this.state.emailErr}
-            />
+
             <input type="submit" value="Submit" />
           </form>
         </div>
