@@ -19,7 +19,8 @@ import rootReducer from "./reducers/index";
 // Components
 // import Twitter from "./components/Twitter";
 import HomePage from "./components/homepage/HomepPage";
-import Register from "./components/Register/Register";
+
+import RegisterContainer from "./components/Register/RegisterContainer";
 
 // Initialize redux store and thunk middleware
 const store = createStore(rootReducer, applyMiddleware(routing));
@@ -27,13 +28,10 @@ const store = createStore(rootReducer, applyMiddleware(routing));
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      {/* <Switch>
-        <Route path="/" exact component={HomePage} />
-      </Switch> */}
 
       <Switch>
         <Route path='/' exact component={HomePage}/>
-        <Route path='/register' exact component={Register}/>
+        <Route path='/register' exact component={RegisterContainer}/>
       </Switch>
 
     </Router>

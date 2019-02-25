@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 // For links
 
-import Login from "./Login";
+
 
 class Homepage extends React.Component {
   constructor(props) {
@@ -20,6 +20,9 @@ class Homepage extends React.Component {
     this.state.login
       ? this.setState({ login: false })
       : this.setState({ login: true });
+  }
+  componentDidMount(item){
+    console.log(this.props.user)
   }
 
   render() {
@@ -40,7 +43,7 @@ class Homepage extends React.Component {
                         }}>
           Login
         </button>
-        {this.state.login ? <Login updateUser={this.props.changeUser} /> : null}
+        
 
         <h2>Not signed up? Register here</h2>
         <Link to="/register">
