@@ -1,0 +1,15 @@
+.main-feed-tabs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.tabs{
+    margin: auto;
+    width: 75vw;
+}
+
+.main-feed-tabs > section{
+    margin: auto;
+}

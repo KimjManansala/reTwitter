@@ -93,11 +93,11 @@ class RegisterContainer extends Component {
     if (message.data.error) {
       if (message.data.error.username)
         this.setState({
-          usernameEr: { show: true, message: message.data.error.username }
+         userErr: { show: true, message: message.data.error.username }
         });
       if (message.data.error.register)
         this.setState({
-          usernameEr: { show: true, message: message.data.error.register }
+         userErr: { show: true, message: message.data.error.register }
         });
       if (message.data.error.email)
         this.setState({
@@ -128,7 +128,7 @@ class RegisterContainer extends Component {
             console.log(res.data.user)
             this.props.saveUser(res.data.user);
             console.log(this.props.user);
-            this.props.history.push("/");
+            this.props.history.push("/mainFeed");
           } else {
             // Do nothing
           }
