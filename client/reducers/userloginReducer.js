@@ -12,7 +12,7 @@ const userLogin = ( state = {user: {}},action) => {
    */
        // Deep copy of the current state
 
-  const newState = Object.assign({}, state);
+  let newState = Object.assign({}, state);
 
   switch (action.type) {
     case "CHANGE_USER":

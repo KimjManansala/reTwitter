@@ -141,6 +141,10 @@ class RegisterContainer extends Component {
     }
   }
 
+  componentDidMount(){
+    console.log('Hello this should be this.props', this.props)
+  }
+
   componentDidUpdate(prevProps, prevState) {
     // console.log("this is the prev state:", prevState);
     // console.log("this is the current state:", this.state);
@@ -190,7 +194,9 @@ class RegisterContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.userLogin.user
+  user: state.userLogin.user,
+  tweets:  state.tweet
+
   // count: state.countReducer.count
 });
 

@@ -4,6 +4,8 @@ const compress = require("compression");
 const path = require("path");
 const bodyParser = require("body-parser");
 
+
+
 // Note: if you host using heroku, you might find this useful
 // const sslRedirect = require('heroku-ssl-redirect');
 
@@ -48,7 +50,8 @@ app.use(session(sessionsObj));
 // app.use('/db', db);
 
 app.use(require('./routes/createUser'))
-
+app.use(require('./routes/tweet'))
+app.use(require('./routes/userData'))
 
 // frontend entry
 app.use("*", (req, res) => {
