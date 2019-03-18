@@ -14,6 +14,8 @@ const app = express();
 // Again, for if you use Heroku: enable ssl redirect
 // app.use(sslRedirect());
 
+
+
 const buildPath = path.join(__dirname, "..", "build");
 
 app.use(express.static(buildPath));
@@ -52,6 +54,7 @@ app.use(session(sessionsObj));
 app.use(require('./routes/createUser'))
 app.use(require('./routes/tweet'))
 app.use(require('./routes/userData'))
+app.use(require('./routes/login'))
 
 // frontend entry
 app.use("*", (req, res) => {

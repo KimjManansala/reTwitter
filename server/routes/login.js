@@ -18,57 +18,27 @@ module.exports = router;
 
 
 router.get('/twitter/login/', (req,res)=>{
-  let username =  req.body.username 
-  let password = req.body.password
-  if(checkInput){
-    db.user
+  console.log(req.query)
+  let username =  req.query.username 
+  let password = req.query.password
+  console.log(username, password, "Is being passed into")
+
+    db.User
     .findOne({
       username: username
     })
     .then(user=>{
       if(user){
-        bcrypt.compare(password, user.dataValues.password, (err, check) => {
-          if(check){
+        bcrypt.compare(password, user.dataValues.password, (err, correct)=>{
+          if(correct){
             req.session.user = user.dataValues
-            res.send({user:user.dataValues})
-
+            res.send({user: user.dataValues})
           }else{
-            console.log('failed')
+            res.send({error: true})
           }
-
-      })
-
-
-
-
-
-
-    
-
-    .catch(er=>{
-      console.log('There was an error')
+        })
+      }
     })
-
-  }else{
-    res.json({error: 'Cannot have missing credentials'})
-  }
 
 
 })
-
-
-
-function checkInput(username, password) {
-  if (username) {
-    // Do nothing
-  } else {
-    return false
-      
-  }
-  if (password) {
-    //  DO NOTHING
-  } else {
-    return false
-  }
-  return true;
-}

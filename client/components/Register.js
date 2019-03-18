@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Input from "../Input";
+import Input from "./Input";
 import { connect } from "react-redux";
 import axios from "axios";
 class Register extends Component {
@@ -95,9 +95,9 @@ class Register extends Component {
         .then(this.checkResult)
         .then(res=>{
           if (res) {
-            console.log(res.data.user)
+
             this.props.saveUser(res.data.user);
-            console.log(this.props.user);
+
             // this.props.history.push("/mainFeed");
           }
         })
@@ -162,8 +162,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.userLogin.user,
-  tweets: state.tweet
+  user: state.userLogin.user
 });
 
 const mapDispatchToProps = dispatch => ({
