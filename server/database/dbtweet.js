@@ -5,7 +5,8 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 const tweetDb = {
-  getAllTweet: getTweets
+  getAllTweet: getTweets,
+  postTweet: postTweet
 };
 
 module.exports = tweetDb;
@@ -24,3 +25,37 @@ function getTweets() {
     })
   });
 }
+
+
+function postTweet(text , userID){
+  return new Promise((resolve, reject) =>{
+    db.Tweet
+    .build(
+      {
+        text: text,
+        like: 0,
+        retweet: 0,
+        long: null,
+        lat: null,
+        user_id: userID,
+        createdAt: null,
+        updatedAt: null
+      }
+    )
+    .save()
+    .then(results=>{
+      console.log('This is results', results)
+      resolve(results)
+    })
+    .catch(er=>{
+      reject(er)
+    })
+  })
+}
+
+// text: DataTypes.STRING,
+    // like: DataTypes.INTEGER,
+    // retweet: DataTypes.INTEGER,
+    // long: DataTypes.DOUBLE,
+    // lat: DataTypes.DOUBLE
+    // USERID

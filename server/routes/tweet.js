@@ -26,3 +26,19 @@ router.get("/api/tweets", (req, res) => {
       res.send({ error: true });
     });
 });
+
+
+
+router.post("/api/tweet", (req,res)=>{
+  console.log(req.body)
+  tweet.postTweet(req.body.tweet, req.body.user.user.id)
+  .then(results=>{
+    console.log('This is results.dataValues', results.dataValues)
+    res.send({tweet: results.dataValues})
+  })
+  .catch(er=>{
+    res.send({error: er})
+  })
+
+
+})
