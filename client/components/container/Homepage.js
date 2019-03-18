@@ -40,7 +40,7 @@ class Homepage extends Component {
         >
           Signin
         </a>
-        <div className="login">{this.state.signIn ? <LogIn /> : null}</div>
+        <div className="login">{this.state.signIn ? <LogIn history ={this.props.history}/> : null}</div>
 
         <a
           className="button is-primary"
@@ -51,7 +51,7 @@ class Homepage extends Component {
           Register
         </a>
         <div className="register">
-          {this.state.register ? <Register /> : null}
+          {this.state.register ? <Register history ={this.props.history}/> : null}
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 // Redux
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 
 // React Router
 import { Router, Route, Switch } from "react-router-dom";
@@ -19,15 +19,20 @@ import rootReducer from "./reducers/index";
 // Components
 // import Twitter from "./components/Twitter";
 import Homepage from './components/container/Homepage'
+import MainPage from "./components/container/MainPage";
 
 // Initialize redux store and thunk middleware
-const store = createStore(rootReducer, applyMiddleware(routing));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// const store = createStore(rootReducer, applyMiddleware(routing));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(routing)));
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
         <Route path="/" exact component={Homepage} />
+        <Route path='/main' exact component={MainPage}/>
       </Switch>
     </Router>
   </Provider>,

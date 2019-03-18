@@ -2,7 +2,7 @@ import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
 // Reducers
-import sampleReducer from './sampleReducer';
+
 import userLogin from './userloginReducer'
 import tweet from './tweetReducer'
 

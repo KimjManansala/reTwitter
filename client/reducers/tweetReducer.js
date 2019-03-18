@@ -1,15 +1,19 @@
 
 
 
-
+function deepCopy(x) {
+    return JSON.parse(JSON.stringify(x));
+  }
 const tweetReducer = ( state = [],action) => {
+
+    let newState = deepCopy(state)
 
     switch(action.type){
 
-        case 'UPDATE_NEW_TWEET':
-        let newState = [...state]
-        return action.value.concat(newState)
-        break;
+        case 'GET_FIRST_TWEET':
+
+        newState = action.value
+        return newState
 
         default:
         return state

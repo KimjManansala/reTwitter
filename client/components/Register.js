@@ -98,7 +98,7 @@ class Register extends Component {
 
             this.props.saveUser(res.data.user);
 
-            // this.props.history.push("/mainFeed");
+            this.props.history.push("/main");
           }
         })
     console.log(this.state)

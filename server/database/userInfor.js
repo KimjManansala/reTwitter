@@ -15,8 +15,6 @@ const userDb = {
 
 
   function getUserData(id){
-      console.log('Trying to getUserData')
-      console.log('this is id', id)
       return new Promise((resolve, reject)=>{
           db.User.findAll({
               where: {

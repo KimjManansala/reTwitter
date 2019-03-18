@@ -17,7 +17,6 @@ module.exports = router;
 
 router.get('/api/user', (req,res)=>{
     let userId = req.query.id
-    console.log(userId)
     userData.getUserData(userId)
     .then(data=>{
         res.send(data)

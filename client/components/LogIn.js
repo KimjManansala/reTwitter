@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Input from "./Input";
 import axios from "axios";
 
+
+
 class LogIn extends Component {
   constructor(props) {
     super(props);
@@ -38,12 +40,14 @@ class LogIn extends Component {
   }
 
   handleSubmit(evt) {
-    console.log('Hi')
+
     evt.preventDefault();
     if(this.checkSumit()){
       axios.get('/twitter/login/', {params:{username: this.state.username, password: this.state.pass}})
       .then(res=>{
         this.props.saveUser(res.data.user);
+        console.log(this)
+        this.props.history.push('/main')
       })
 
     }else{

@@ -1,15 +1,31 @@
-.main-feed-tabs{
+.columns{
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+.column{
+    margin: auto;
+    text-align: center;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 25px;
+}
+
+.label{
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-page{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
 }
 
-.tabs{
-    margin: auto;
-    width: 75vw;
+.main-page > button{
+    width: fit-content;
+    margin: 10px auto;
 }
 
-.main-feed-tabs > section{
-    margin: auto;
+.label > h6{
+    font-variant-numeric: normal;
 }
