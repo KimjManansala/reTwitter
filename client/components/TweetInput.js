@@ -19,6 +19,13 @@ handleSubmit(evt){
     axios.post('/api/tweet', {user: this.props.user, tweet: this.state.postText})
     .then(res=>{
         console.log('This should be the result from axios post', res)
+    let newTweet = [{user: this.props.user, body: res.data}]
+    console.log('this is newTweet', newTweet)
+    return newTweet
+
+    })
+    .then(tweet=>{
+        this.props.addTweet(tweet)
     })
 
 }
@@ -29,9 +36,6 @@ handleTextChange(evt){
     this.setState({postText: evt.target.value});
     this.setState({numChar: evt.target.value.length})
     }
-    
-    
-
 }
 
 
@@ -74,7 +78,9 @@ const mapStateToProps = state => ({
 
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    addTweet : (tweet) =>{ dispatch({type: 'ADD_NEW_TWEET', value: tweet})}
+});
 
 export default connect(
   mapStateToProps,

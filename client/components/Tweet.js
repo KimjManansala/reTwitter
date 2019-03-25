@@ -1,10 +1,14 @@
 import React from "react";
 
-const Tweet = () => {
+const Tweet = ({ user, body }) => {
+  console.log(user);
   return (
-        <div className='columns'>
+    <div className="columns">
+      <div className="column is-three-fifths is-offset-two-fifthsr">
+        <div className="tweet-user"> {user}</div>
 
-      <div className="column is-three-fifths is-offset-two-fifthsr">is-half</div>
+        <div className="tweet-body">{body.text}</div>
+      </div>
     </div>
   );
 };

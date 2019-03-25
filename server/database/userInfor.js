@@ -16,7 +16,7 @@ const userDb = {
 
   function getUserData(id){
       return new Promise((resolve, reject)=>{
-          db.User.findAll({
+          db.User.findOne({
               where: {
                   id: id
               }

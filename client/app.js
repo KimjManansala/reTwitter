@@ -5,6 +5,9 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 
+// Redux Thunk
+import thunk from 'redux-thunk';
+
 // React Router
 import { Router, Route, Switch } from "react-router-dom";
 import history from "./history"; // Import history in any component you want to use it
@@ -25,7 +28,7 @@ import MainPage from "./components/container/MainPage";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // const store = createStore(rootReducer, applyMiddleware(routing));
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(routing)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(routing, thunk)));
 
 ReactDOM.render(
   <Provider store={store}>

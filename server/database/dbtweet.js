@@ -15,7 +15,8 @@ function getTweets() {
   return new Promise((resolve, reject) => {
     db.Tweet.findAll({
       limit: 20,
-      order: [["createdAt", "DESC"]]
+      order: [["createdAt", "DESC"]],
+      include: [{model: db.User}]
     })
     .then(res=>{
       resolve(res)

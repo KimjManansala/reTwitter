@@ -4,6 +4,15 @@
 function deepCopy(x) {
     return JSON.parse(JSON.stringify(x));
   }
+
+
+let test = [{user: null}, {body: null}]
+
+
+
+
+
+
 const tweetReducer = ( state = [],action) => {
 
     let newState = deepCopy(state)
@@ -11,12 +20,16 @@ const tweetReducer = ( state = [],action) => {
     switch(action.type){
 
         case 'GET_FIRST_TWEET':
+            
+            return action.value.concat(state.slice())
+        //return addTweet(newState, action.value)
 
-        newState = action.value
-        return newState
+
+        case 'ADD_NEW_TWEET':
+            return newState
 
         default:
-        return state
+            return state
     }
 
 

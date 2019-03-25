@@ -10,7 +10,8 @@ class MainPage extends Component {
   constructor(props){
     super(props)
     this.state={
-      showInput: null
+      showInput: null,
+      showTweet: false
     }
 
     this.closeInput = this.closeInput.bind(this)
@@ -27,35 +28,29 @@ class MainPage extends Component {
     this.setState({showInput: show})
   }
 
-  componentDidUpdate(){
-
-  }
 
 
-  findTweetUser(tweet){
-    let tweets= []
-    tweet.data.forEach(tweetData=>{
-      axios.get('/api/user/', {params:{id: tweetData.user_id}})
-      .then(data=>{
-        tweets.push({user: data.data, body: tweetData})
-      })
-      .catch(er=>{console.error('THIS IS ERROR', er)})
-    })
-    return tweets
-  }
+
+  
 
   componentDidMount(){
+    this.setState({showTweet: false})
+    console.log(this.props.tweet)
     axios.get('/api/tweets')
-    .then(this.findTweetUser)
     .then(wholeTweet=>{
-      this.props.updateTweet(wholeTweet)
+      console.log('this is what is being passed into ipdatetWEET', wholeTweet.data, typeof wholeTweet)
+      this.props.updateTweet(wholeTweet.data)
+      this.setState({showTweet: true})
     })
-  }
 
+
+  }
+  componentDidUpdate(){
+  }
 
 
   render() {
-
+    console.log('hi', this.props.tweet)
     return (
       <div className='main-page'>
         
@@ -66,21 +61,9 @@ class MainPage extends Component {
       className="button is-link">Create a Post!</button>}
 
     {this.state.showInput? <TweetInput method={this.closeInput}/>: null}
-
-
-
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
+          {this.state.showTweet? this.props.tweet.map((tweetInfo, index)=>{
+            return <Tweet key={index} user={tweetInfo.User.username} body={tweetInfo}/>
+          }): null}
       </div>
     );
   }

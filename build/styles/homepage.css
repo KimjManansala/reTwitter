@@ -15,3 +15,10 @@
 .button{
     margin: 15px;
 }
+
+
+
+.tweet-status{
+    display: flex;
+    justify-content: center;
+}

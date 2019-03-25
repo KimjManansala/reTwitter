@@ -12,17 +12,20 @@ module.exports = router;
 const tweet = require("../database/dbtweet");
 
 router.get("/api/tweets", (req, res) => {
+
   let tweetsArray = [];
   // This should send the user the most recent tweets
   tweet
     .getAllTweet()
     .then(data => {
+
       data.forEach(tweet => {
         tweetsArray.push(tweet.dataValues);
       });
       res.send(tweetsArray);
     })
     .catch(er => {
+      console.log(er)
       res.send({ error: true });
     });
 });
